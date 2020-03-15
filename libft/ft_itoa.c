@@ -6,7 +6,7 @@
 /*   By: ksean <ksean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:10:28 by ksean             #+#    #+#             */
-/*   Updated: 2020/03/11 20:31:11 by ksean            ###   ########.fr       */
+/*   Updated: 2020/03/15 17:38:49 by ksean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ static int		ft_count_sym(int n)
 	return (len);
 }
 
-char			*ft_itoa(int n)
+char			*ft_itoa(long long n)
 {
 	char	*dest;
-	int		len;
-	int		neg;
+	long int		len;
+	long int		neg;
 
 	neg = 1;
 	if (n < 0)

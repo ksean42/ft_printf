@@ -6,9 +6,11 @@
 #    By: ksean <ksean@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/07 20:13:57 by ksean             #+#    #+#              #
-#    Updated: 2020/03/10 18:18:59 by ksean            ###   ########.fr        #
+#    Updated: 2020/03/15 17:18:16 by ksean            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+#MAKE V2
 
 PATH = srcs/
 
@@ -18,27 +20,32 @@ OBJ = $(SRC:.c=.o)
 LIB = libftprintf.a
 LIB_PATH := ./libft/
 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror
 
 NAME = ft_printf
 
-all: $(NAME)
+all: $(NAME) $(LIB) $(OBJ)
 
-$(NAME): $(LIB) $(OBJ)
-		gcc $(FLAGS) $(OBJ) -o $(NAME) $(LIB_PATH)$(LIB)
+test: $(OBJ) $(LIB)
+	gcc  -g $(SRC) main_test.c -o $(NAME) $(LIB_PATH)$(LIB)
+
+$(NAME): $(OBJ) $(LIB)
+		/usr/bin/ar rc $(LIB) $(OBJ) $(LIB_PATH)*.o
+		ranlib $(LIB)
 
 $(LIB):
-		make -C $(LIB_PATH)
+	make -C $(LIB_PATH)
 
 $(OBJ): %.o: %.c
-		gcc $(FLAGS) -I ft_printf.h -I $(LIB_PATH) -o $@ -c $^
+		gcc $(FLAGS) -g -I ft_printf.h -I $(LIB_PATH) -o $@ -c $^
 
 clean:
 		rm -rf $(OBJ)
 		make clean -C $(LIB_PATH)
 
 fclean: clean
-	make fclean -C $(LIB_PATH)
-	rm -rf $(NAME)
+	/bin/rm -rf $(NAME)
+	/bin/rm -rf $(LIB)
+	/bin/rm -rf $(LIB_PATH)*.o
 
 re: fclean all
